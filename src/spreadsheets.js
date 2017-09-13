@@ -21,26 +21,26 @@
 	}else
 	if(typeof module !== 'undefined' && module.exports){
 		module.exports = factory(require('FileSaver'));
+	}
+
+	var test = function(){
+		return [
+			typeof(FileSaver) === 'function'
+		].indexOf(false) === -1
+	};
+
+	if(test()){
+		window.SpreadSheets = factory(FileSaver);
 	}else{
-		var test = function(){
-			return [
-				typeof(FileSaver) === 'function'
-			].indexOf(false) === -1
-		};
+		var nS = setInterval(function(){
+			if(!test()){
+				return false;
+			}
 
-		if(test()){
+			clearInterval(nS);
+
 			window.SpreadSheets = factory(FileSaver);
-		}else{
-			var nS = setInterval(function(){
-				if(!test()){
-					return false;
-				}
-
-				clearInterval(nS);
-
-				window.SpreadSheets = factory(FileSaver);
-			});
-		}
+		});
 	}
 })(function(FileSaver){
 	'use strict';
