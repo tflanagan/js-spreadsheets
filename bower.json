@@ -1,0 +1,35 @@
+{
+  "name": "js-spreadsheets",
+  "description": "Lightweight spreadsheet classes for the browser",
+  "main": "src/spreadsheets.js",
+  "authors": [
+    "Tristian Flanagan <contact@tristianflanagan.com> (https://github.com/tflanagan)"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "spreadsheets",
+    "csv",
+    "sv",
+    "tsv",
+    "parser",
+    "writer"
+  ],
+  "homepage": "https://github.com/tflanagan/js-spreadsheets",
+  "moduleType": [
+    "globals",
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    ".gitignore"
+  ],
+  "dependencies": {
+    "js-filesaver": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tflanagan/js-spreadsheets.git"
+  },
+  "private": false
+}
