@@ -1,7 +1,8 @@
 spreadsheets
 ============
 
-```
+## Exports
+```javascript
 window.Spreadsheets = {
 	Cell: Cell,
 	Row: Row,
@@ -19,7 +20,9 @@ window.Spreadsheets = {
 }
 ```
 
-```
+
+## Types
+```typescript
 type FileObj = {
 	filename: string;
 	data: string | ArrayBuffer;
@@ -53,7 +56,7 @@ class TSVParser extends SVParser {}
 
 class BaseWriter {
 	constructor: (type: string = 'text/plain', charset: string = 'utf-8') => BaseWriter;
-	addSheet: (sheet) => BaseWriter;
+	addSheet: (sheet?: Sheet) => Sheet;
 	getCharset: () => string;
 	getNSheets: () => number;
 	getSheet: (i: number) => Sheet;
@@ -75,4 +78,46 @@ class SVWriter {
 class CSVWriter extends SVWriter {}
 
 class TSVWriter extends SVWriter {}
+```
+
+## Examples
+
+```js
+const csvParser = new Spreadsheets.parsers.CSV();
+
+await csvParser.setContents([
+	[
+		'Row 1, Col 1',
+		'Row 1, Col 2',
+		'Row 1, Col 3'
+	].join(','),
+	[
+		'Row 2, Col 1',
+		'Row 2, Col 2',
+		'Row 2, Col 3'
+	].join(','),
+	[
+		'Row 3, Col 1',
+		'Row 3, Col 2',
+		'Row 3, Col 3'
+	].join(',')
+].join('\n'));
+
+const csvSheet = await csvParser.parseFile();
+
+csvSheet.forEach((row, r) => {
+	row.forEach((cell, c) => {
+		console.log(`Cell Value A: ${cell.get()}`);
+
+		cell.set(`Col ${c}, Row ${r}`);
+
+		console.log(`Cell Value B: ${cell.get()}`);
+	});
+});
+
+const csvWriter = new Spreadsheets.writers.CSV();
+
+csvWriter.addSheet(csvSheet);
+
+await csvWriter.saveFile('new.csv');
 ```
