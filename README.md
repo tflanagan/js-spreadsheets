@@ -83,6 +83,31 @@ class TSVWriter extends SVWriter {}
 ## Examples
 
 ```js
+// CSV contents from html input source
+const inputElementFileOnChangeFunction = function(event){
+	const file = this.files && this.files[0];
+
+	if(file){
+		const csvParser = new Spreadsheets.parsers.CSV();
+
+		await csvParser.loadFile(file);
+
+		const csvSheet = await csvParser.parseFile();
+
+		csvSheet.forEach((row, r) => {
+			row.forEach((cell, c) => {
+				console.log(`Cell Value A: ${cell.get()}`);
+
+				cell.set(`Col ${c} Row ${r}`);
+
+				console.log(`Cell Value B: ${cell.get()}`);
+			});
+		});
+	}
+};
+
+
+// CSV contents from non-html input source
 const csvRaw = [
 	[
 		'Row 1 Col 1',
