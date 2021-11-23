@@ -84,7 +84,7 @@ class TSVWriter extends SVWriter {}
 
 ```js
 // CSV contents from html input source
-const inputElementFileOnChangeFunction = function(event){
+const inputElementFileOnChangeFunction = async function(event){
 	const file = this.files && this.files[0];
 
 	if(file){
