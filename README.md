@@ -67,7 +67,7 @@ class BaseWriter {
 	saveFile: (name: string = 'download', noAutoBom: boolean = false) => void;
 }
 
-class SVWriter {
+class SVWriter extends BaseWriter {
 	constructor: (delimiter: string = ',', type: string = 'text/csv', charset: string = 'utf-8') => SVWriter;
 	getData: () => string;
 	getDelimiter: () => string;
