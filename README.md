@@ -96,11 +96,7 @@ const inputElementFileOnChangeFunction = function(event){
 
 		csvSheet.forEach((row, r) => {
 			row.forEach((cell, c) => {
-				console.log(`Cell Value A: ${cell.get()}`);
-
-				cell.set(`Col ${c} Row ${r}`);
-
-				console.log(`Cell Value B: ${cell.get()}`);
+				console.log(`Cell (${r}, ${c}) Value: ${cell.get()}`);
 			});
 		});
 	}
