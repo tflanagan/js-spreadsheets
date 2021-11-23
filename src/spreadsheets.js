@@ -157,6 +157,12 @@
 			});
 		};
 
+		BaseParser.prototype.setContents = function(contents, filename, fileProps, progress){
+			var file = new File([ contents ], filename || 'file.txt', fileProps || {});
+
+			return this.loadFile(file, progress);
+		};
+
 	/* SV Parser */
 		var SVParser = function(delimiter){
 			BaseParser.apply(this, arguments);
