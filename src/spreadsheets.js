@@ -126,7 +126,7 @@
 		BaseParser.prototype.loadFile = function(file, progress){
 			var that = this;
 
-			return $q(function(resolve, reject){
+			return new Promise(function(resolve, reject){
 				var reader = new FileReader(),
 					callbackCalled = false;
 
@@ -143,7 +143,7 @@
 					}
 				});
 
-				reader.addEventListener('progress', progress || emptyFunc);
+				reader.addEventListener('progress', progress || function(){});
 
 				reader.addEventListener('error', function(err){
 					if(!callbackCalled){
@@ -175,10 +175,10 @@
 		SVParser.prototype.parseFile = function(){
 			var that = this;
 
-			return $q(function(resolve, reject){
+			return new Promise(function(resolve, reject){
 				try {
 					var file = that.getFile(),
-						text = file.replace(/\r\n?|\n/g, '\n'),
+						text = file.data.replace(/\r\n?|\n/g, '\n'),
 						sheet = new Sheet(),
 						delimiter = that.getDelimiter(),
 						regex = new RegExp('(' + delimiter + ')(?=(?:[^"]|"[^"]*")*$)', 'g');
