@@ -241,8 +241,14 @@
 			return this;
 		};
 
-		BaseWriter.prototype.addSheet = function(){
-			var sheet = new Sheet();
+		BaseWriter.prototype.addSheet = function(sheet){
+			if(!sheet){
+				sheet = new Sheet();
+			}
+
+			if(!(sheet instanceof Sheet)){
+				throw new Error('sheet must be of type Sheet');
+			}
 
 			this._sheets.push(sheet);
 
