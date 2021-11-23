@@ -240,7 +240,7 @@
 	/* Base Writer */
 		var BaseWriter = function(type, charset){
 			this._type = type || 'text/plain';
-			this._charset = charset;
+			this._charset = charset || 'utf-8';
 
 			this._sheets = [];
 
