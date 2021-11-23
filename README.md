@@ -83,25 +83,31 @@ class TSVWriter extends SVWriter {}
 ## Examples
 
 ```js
+const csvRaw = [
+	[
+		'Row 1 Col 1',
+		'Row 1 Col 2',
+		'Row 1 Col 3'
+	].join(','),
+	[
+		'Row 2 Col 1',
+		'Row 2 Col 2',
+		'Row 2 Col 3'
+	].join(','),
+	[
+		'Row 3 Col 1',
+		'Row 3 Col 2',
+		'Row 3 Col 3'
+	].join(',')
+].join('\n');
+
 const csvParser = new Spreadsheets.parsers.CSV();
 
-await csvParser.setContents([
-	[
-		'Row 1, Col 1',
-		'Row 1, Col 2',
-		'Row 1, Col 3'
-	].join(','),
-	[
-		'Row 2, Col 1',
-		'Row 2, Col 2',
-		'Row 2, Col 3'
-	].join(','),
-	[
-		'Row 3, Col 1',
-		'Row 3, Col 2',
-		'Row 3, Col 3'
-	].join(',')
-].join('\n'));
+const csvBlob = new Blob([ csvRaw ], {
+	type: 'text/csv'
+});
+
+await csvParser.setContents(csvBlob);
 
 const csvSheet = await csvParser.parseFile();
 
@@ -109,7 +115,7 @@ csvSheet.forEach((row, r) => {
 	row.forEach((cell, c) => {
 		console.log(`Cell Value A: ${cell.get()}`);
 
-		cell.set(`Col ${c}, Row ${r}`);
+		cell.set(`Col ${c} Row ${r}`);
 
 		console.log(`Cell Value B: ${cell.get()}`);
 	});
